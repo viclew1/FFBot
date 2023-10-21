@@ -46,7 +46,7 @@ tasks.withType<KotlinCompile>().configureEach {
 tasks.withType<Jar> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes["Main-Class"] = "fr.lewon.ffxiv.bot.VLFfxivBotAppKt"
+        attributes["Main-Class"] = "fr.lewon.ff.bot.VLFfBotAppKt"
     }
     from(sourceSets["main"].output)
 
@@ -58,13 +58,13 @@ tasks.withType<Jar> {
 
 compose.desktop {
     application {
-        mainClass = "fr.lewon.dofus.bot.VLFfxivBotAppKt"
+        mainClass = "fr.lewon.dofus.bot.VLFfBotAppKt"
         nativeDistributions {
             includeAllModules = true
             windows {
                 iconFile.set(File("src/main/resources/icon/global_logo.png"))
             }
-            packageName = "VLFfxivBotApp"
+            packageName = "VLFfBotApp"
             packageVersion = "$version"
         }
     }
