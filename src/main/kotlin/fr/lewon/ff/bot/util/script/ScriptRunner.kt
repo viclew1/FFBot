@@ -7,6 +7,7 @@ import fr.lewon.ff.bot.scripts.parameters.ParameterValues
 import fr.lewon.ff.bot.util.GameInfo
 import fr.lewon.ff.bot.util.Listenable
 import fr.lewon.ff.bot.util.io.ScreenUtil
+import fr.lewon.ff.bot.util.io.WaitUtil
 import fr.lewon.ff.bot.util.logs.LogItem
 
 object ScriptRunner : Listenable<ScriptRunnerListener>() {
@@ -25,6 +26,7 @@ object ScriptRunner : Listenable<ScriptRunnerListener>() {
             try {
                 GameInfo.gameBounds = ScreenUtil.getGameBounds()
                 val script = scriptBuilder.buildScript()
+                WaitUtil.sleep(500)
                 script.execute(logItem, parameterValues, stats)
                 onScriptOk(logItem)
             } catch (e: Throwable) {

@@ -18,7 +18,7 @@ object FishingScript : BotScriptBuilder("Fishing") {
     private val fishingSpellParameter = ChoiceParameter(
         "Fishing spell location",
         "The location of the fishing spell",
-        SpellPosition.Bottom,
+        SpellPosition.Bottom1,
         getAvailableValues = { SpellPosition.entries.toList() },
         stringToItemValue = { SpellPosition.valueOf(it) },
         itemValueToString = { it.name }
@@ -27,7 +27,7 @@ object FishingScript : BotScriptBuilder("Fishing") {
     private val reelSpellParameter = ChoiceParameter(
         "Reel spell location",
         "The location of the reeling spell",
-        SpellPosition.Left,
+        SpellPosition.Left1,
         getAvailableValues = { SpellPosition.entries.toList() },
         stringToItemValue = { SpellPosition.valueOf(it) },
         itemValueToString = { it.name }

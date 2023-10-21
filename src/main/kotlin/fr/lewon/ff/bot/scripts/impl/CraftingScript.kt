@@ -18,7 +18,7 @@ object CraftingScript : BotScriptBuilder("Crafting") {
 
     private val craftKeysParameter = StringParameter(
         "Craft keys",
-        "The spells to hit to finish the item (L,T,R,B)",
+        "The spells to hit to finish the item (L1,T1,R1,B1,L2,T2,R2,B2), comma separated",
         ""
     )
 
@@ -44,8 +44,7 @@ object CraftingScript : BotScriptBuilder("Crafting") {
         statValues: HashMap<BotScriptStat, String>
     ) {
         val craftAmount = parameterValues.getParamValue(craftAmountParameter)
-        val craftKeys = parameterValues.getParamValue(craftKeysParameter).toCharArray().map { it.toString() }
-            .map(this::getSpellPosition)
+        val craftKeys = parameterValues.getParamValue(craftKeysParameter).split(",").map(this::getSpellPosition)
         for (i in 0..<craftAmount) {
             if (!waitUntilCraftButtonAvailable()) {
                 error("Couldn't find craft button")
@@ -82,10 +81,14 @@ object CraftingScript : BotScriptBuilder("Crafting") {
 
     private fun getSpellPosition(craftKey: String): SpellPosition {
         return when (craftKey) {
-            "L" -> SpellPosition.Left
-            "R" -> SpellPosition.Right
-            "T" -> SpellPosition.Top
-            "B" -> SpellPosition.Bottom
+            "L1" -> SpellPosition.Left1
+            "R1" -> SpellPosition.Right1
+            "T1" -> SpellPosition.Top1
+            "B1" -> SpellPosition.Bottom1
+            "L2" -> SpellPosition.Left2
+            "R2" -> SpellPosition.Right2
+            "T2" -> SpellPosition.Top2
+            "B2" -> SpellPosition.Bottom2
             else -> error("Invalid key : $craftKey")
         }
     }

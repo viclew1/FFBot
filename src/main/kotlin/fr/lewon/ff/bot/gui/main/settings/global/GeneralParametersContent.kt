@@ -12,6 +12,7 @@ import fr.lewon.ff.bot.gui.custom.HorizontalSeparator
 import fr.lewon.ff.bot.gui.custom.IntegerTextField
 import fr.lewon.ff.bot.gui.main.settings.ConfigLine
 import fr.lewon.ff.bot.gui.main.settings.SettingsUIUtil
+import fr.lewon.ff.bot.model.config.GlobalConfig
 import java.awt.Point
 
 @Composable
@@ -23,103 +24,63 @@ fun GeneralParametersContent() {
         Switch(globalConfig.isFramed, {
             SettingsUIUtil.updateGlobalConfig { config -> config.isFramed = it }
         })
-        HorizontalSeparator("Left spell position")
-        PositionInput(
-            point = globalConfig.leftSpellPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.leftSpellPosition = Point(it, config.leftSpellPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.leftSpellPosition = Point(config.leftSpellPosition.x, it)
-                }
-            }
-        )
-        HorizontalSeparator("Top spell position")
-        PositionInput(
-            point = globalConfig.topSpellPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.topSpellPosition = Point(it, config.topSpellPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.topSpellPosition = Point(config.topSpellPosition.x, it)
-                }
-            }
-        )
-        HorizontalSeparator("Right spell position")
-        PositionInput(
-            point = globalConfig.rightSpellPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.rightSpellPosition = Point(it, config.rightSpellPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.rightSpellPosition = Point(config.rightSpellPosition.x, it)
-                }
-            }
-        )
-        HorizontalSeparator("Bottom spell position")
-        PositionInput(
-            point = globalConfig.bottomSpellPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.bottomSpellPosition = Point(it, config.bottomSpellPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.bottomSpellPosition = Point(config.bottomSpellPosition.x, it)
-                }
-            }
-        )
+        HorizontalSeparator("Left spell 1 position")
+        PositionInput(globalConfig.leftSpell1Position) { globalConfig, point ->
+            globalConfig.leftSpell1Position = point
+        }
+        HorizontalSeparator("Top spell 1 position")
+        PositionInput(globalConfig.topSpell1Position) { globalConfig, point ->
+            globalConfig.topSpell1Position = point
+        }
+        HorizontalSeparator("Right spell 1 position")
+        PositionInput(globalConfig.rightSpell1Position) { globalConfig, point ->
+            globalConfig.rightSpell1Position = point
+        }
+        HorizontalSeparator("Bottom spell 1 position")
+        PositionInput(globalConfig.bottomSpell1Position) { globalConfig, point ->
+            globalConfig.bottomSpell1Position = point
+        }
+        HorizontalSeparator("Left spell 2 position")
+        PositionInput(globalConfig.leftSpell2Position) { globalConfig, point ->
+            globalConfig.leftSpell2Position = point
+        }
+        HorizontalSeparator("Top spell 2 position")
+        PositionInput(globalConfig.topSpell2Position) { globalConfig, point ->
+            globalConfig.topSpell2Position = point
+        }
+        HorizontalSeparator("Right spell 2 position")
+        PositionInput(globalConfig.rightSpell2Position) { globalConfig, point ->
+            globalConfig.rightSpell2Position = point
+        }
+        HorizontalSeparator("Bottom spell 2 position")
+        PositionInput(globalConfig.bottomSpell2Position) { globalConfig, point ->
+            globalConfig.bottomSpell2Position = point
+        }
         HorizontalSeparator("Craft position")
-        PositionInput(
-            point = globalConfig.craftPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.craftPosition = Point(it, config.craftPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.craftPosition = Point(config.craftPosition.x, it)
-                }
-            }
-        )
+        PositionInput(globalConfig.craftPosition) { globalConfig, point ->
+            globalConfig.craftPosition = point
+        }
         HorizontalSeparator("Sprint spell position")
-        PositionInput(
-            point = globalConfig.sprintSpellPosition,
-            onXUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.sprintSpellPosition = Point(it, config.sprintSpellPosition.y)
-                }
-            },
-            onYUpdate = {
-                SettingsUIUtil.updateGlobalConfig { config ->
-                    config.sprintSpellPosition = Point(config.sprintSpellPosition.x, it)
-                }
-            }
-        )
+        PositionInput(globalConfig.sprintSpellPosition) { globalConfig, point ->
+            globalConfig.sprintSpellPosition = point
+        }
     }
 }
 
 @Composable
-private fun PositionInput(point: Point, onXUpdate: (Int) -> Unit, onYUpdate: (Int) -> Unit) {
+private fun PositionInput(point: Point, updatePoint: (GlobalConfig, Point) -> Unit) {
     Row {
         Row(Modifier.fillMaxWidth().weight(1f)) {
             Text("X : ", modifier = Modifier.align(Alignment.CenterVertically))
-            IntInput(point.x, onXUpdate)
+            IntInput(point.x) {
+                SettingsUIUtil.updateGlobalConfig { config -> updatePoint(config, Point(it, point.y)) }
+            }
         }
         Row(Modifier.fillMaxWidth().weight(1f)) {
             Text("Y : ", modifier = Modifier.align(Alignment.CenterVertically))
-            IntInput(point.y, onYUpdate)
+            IntInput(point.y) {
+                SettingsUIUtil.updateGlobalConfig { config -> updatePoint(config, Point(point.x, it)) }
+            }
         }
     }
 }

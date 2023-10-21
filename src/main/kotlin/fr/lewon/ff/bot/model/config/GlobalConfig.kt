@@ -4,10 +4,14 @@ import java.awt.Point
 
 data class GlobalConfig(
     var isFramed: Boolean = false,
-    var leftSpellPosition: Point = Point(),
-    var rightSpellPosition: Point = Point(),
-    var bottomSpellPosition: Point = Point(),
-    var topSpellPosition: Point = Point(),
+    var leftSpell1Position: Point = Point(),
+    var rightSpell1Position: Point = Point(),
+    var bottomSpell1Position: Point = Point(),
+    var topSpell1Position: Point = Point(),
+    var leftSpell2Position: Point = Point(),
+    var rightSpell2Position: Point = Point(),
+    var bottomSpell2Position: Point = Point(),
+    var topSpell2Position: Point = Point(),
     var craftPosition: Point = Point(),
     var sprintSpellPosition: Point = Point()
 )
