@@ -1,18 +1,13 @@
 package fr.lewon.ff.bot.util.script
 
 import fr.lewon.ff.bot.gui.util.SoundType
-import fr.lewon.ff.bot.model.spells.SpellPosition
 import fr.lewon.ff.bot.scripts.BotScriptBuilder
 import fr.lewon.ff.bot.scripts.BotScriptStat
 import fr.lewon.ff.bot.scripts.parameters.ParameterValues
 import fr.lewon.ff.bot.util.GameInfo
 import fr.lewon.ff.bot.util.Listenable
 import fr.lewon.ff.bot.util.io.ScreenUtil
-import fr.lewon.ff.bot.util.io.toPointAbsolute
 import fr.lewon.ff.bot.util.logs.LogItem
-import org.jetbrains.skia.Color
-import java.io.File
-import javax.imageio.ImageIO
 
 object ScriptRunner : Listenable<ScriptRunnerListener>() {
 
@@ -29,17 +24,6 @@ object ScriptRunner : Listenable<ScriptRunnerListener>() {
         val thread = Thread {
             try {
                 GameInfo.gameBounds = ScreenUtil.getGameBounds()
-                ScreenUtil.takeCapture().also {
-                    val left = SpellPosition.Left.getPosition().toPointAbsolute()
-                    it.setRGB(left.x, left.y, Color.RED)
-                    val r = SpellPosition.Right.getPosition().toPointAbsolute()
-                    it.setRGB(r.x, r.y, Color.RED)
-                    val t = SpellPosition.Top.getPosition().toPointAbsolute()
-                    it.setRGB(t.x, t.y, Color.RED)
-                    val b = SpellPosition.Bottom.getPosition().toPointAbsolute()
-                    it.setRGB(b.x, b.y, Color.RED)
-                    ImageIO.write(it, "png", File("C:/Dev/printscreen.png"))
-                }
                 val script = scriptBuilder.buildScript()
                 script.execute(logItem, parameterValues, stats)
                 onScriptOk(logItem)
