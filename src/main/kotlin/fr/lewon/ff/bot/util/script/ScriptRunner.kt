@@ -26,7 +26,7 @@ object ScriptRunner : Listenable<ScriptRunnerListener>() {
             try {
                 GameInfo.gameBounds = ScreenUtil.getGameBounds()
                 val script = scriptBuilder.buildScript()
-                WaitUtil.sleep(500)
+                WaitUtil.sleep(1500)
                 script.execute(logItem, parameterValues, stats)
                 onScriptOk(logItem)
             } catch (e: Throwable) {
