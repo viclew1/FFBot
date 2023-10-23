@@ -6,11 +6,27 @@ import fr.lewon.ff.bot.util.geometry.PointRelative
 import fr.lewon.ff.bot.util.geometry.RectangleAbsolute
 import fr.lewon.ff.bot.util.geometry.RectangleRelative
 import java.awt.Point
+import java.awt.Rectangle
 import kotlin.math.roundToInt
 
 object ConverterUtil {
 
     private const val PRECISION = 10000.0f
+
+    fun toPoint(point: PointAbsolute): Point {
+        return Point(point.x + GameInfo.gameBounds.x, point.y + GameInfo.gameBounds.y)
+    }
+
+    fun toRectangle(rectangleAbsolute: RectangleAbsolute): Rectangle {
+        val topLeft = rectangleAbsolute.getTopLeft().toPoint()
+        val bottomRight = rectangleAbsolute.getBottomRight().toPoint()
+        return Rectangle(
+            topLeft.x,
+            topLeft.y,
+            bottomRight.x - topLeft.x,
+            bottomRight.y - topLeft.y
+        )
+    }
 
     fun toPointRelative(point: PointAbsolute): PointRelative {
         val x = (point.x - GameInfo.gameBounds.x).toFloat() / GameInfo.gameBounds.width.toFloat()
@@ -50,6 +66,8 @@ object ConverterUtil {
 fun Point.toPointAbsolute() = PointAbsolute(x - GameInfo.gameBounds.x, y - GameInfo.gameBounds.y)
 fun Point.toPointRelative() = ConverterUtil.toPointRelative(this.toPointAbsolute())
 fun PointAbsolute.toPointRelative() = ConverterUtil.toPointRelative(this)
+fun PointAbsolute.toPoint() = ConverterUtil.toPoint(this)
 fun PointRelative.toPointAbsolute() = ConverterUtil.toPointAbsolute(this)
 fun RectangleAbsolute.toRectangleRelative() = ConverterUtil.toRectangleRelative(this)
+fun RectangleAbsolute.toRectangle() = ConverterUtil.toRectangle(this)
 fun RectangleRelative.toRectangleAbsolute() = ConverterUtil.toRectangleAbsolute(this)

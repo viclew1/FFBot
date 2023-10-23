@@ -26,12 +26,12 @@ object ScreenUtil {
         return Robot().createScreenCapture(GameInfo.gameBounds)
     }
 
-    fun getPixelColor(point: Point, fullScreenshot: BufferedImage): Color {
-        return Color(fullScreenshot.getRGB(point.x, point.y))
+    fun getPixelColor(point: PointAbsolute, fullScreenshot: BufferedImage): Color {
+        return getPixelColor(point.toPoint(), fullScreenshot)
     }
 
-    fun getPixelColor(point: PointAbsolute, fullScreenshot: BufferedImage): Color {
-        return getPixelColor(Point(point.x + GameInfo.gameBounds.x, point.y + GameInfo.gameBounds.y), fullScreenshot)
+    fun getPixelColor(point: Point, fullScreenshot: BufferedImage): Color {
+        return Color(fullScreenshot.getRGB(point.x, point.y))
     }
 
     fun getPixelColor(
@@ -71,6 +71,14 @@ object ScreenUtil {
 
     private fun colorCount(
         bounds: RectangleAbsolute,
+        fullScreenshot: BufferedImage = takeCapture(),
+        acceptColorCondition: (Color) -> Boolean
+    ): Int {
+        return colorCount(bounds.toRectangle(), fullScreenshot, acceptColorCondition)
+    }
+
+    private fun colorCount(
+        bounds: Rectangle,
         fullScreenshot: BufferedImage = takeCapture(),
         acceptColorCondition: (Color) -> Boolean
     ): Int {
