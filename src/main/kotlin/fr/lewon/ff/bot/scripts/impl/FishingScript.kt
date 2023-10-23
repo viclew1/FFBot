@@ -15,6 +15,9 @@ import java.awt.Color
 
 object FishingScript : BotScriptBuilder("Fishing") {
 
+    private val minExclamationMarkColor = Color(245, 245, 245)
+    private val maxExclamationMarkColor = Color.WHITE
+
     private val fishingSpellParameter = ChoiceParameter(
         "Fishing spell location",
         "The location of the fishing spell",
@@ -66,9 +69,11 @@ object FishingScript : BotScriptBuilder("Fishing") {
     }
 
     private fun waitUntilFishCaptured(): Boolean = WaitUtil.waitUntil(60_000) {
-        val minColor = Color(251, 251, 251)
-        val maxColor = Color.WHITE
-        ScreenUtil.colorCount(GamePositions.fishingExclamationMarkBounds, minColor, maxColor) > 2000
+        ScreenUtil.colorCount(
+            GamePositions.fishingExclamationMarkBounds,
+            minExclamationMarkColor,
+            maxExclamationMarkColor
+        ) > 3000
     }
 
 }
