@@ -27,7 +27,7 @@ object ScreenUtil {
     }
 
     fun getPixelColor(point: PointAbsolute, fullScreenshot: BufferedImage): Color {
-        return getPixelColor(point.toPoint(), fullScreenshot)
+        return getPixelColor(point, fullScreenshot)
     }
 
     fun getPixelColor(point: Point, fullScreenshot: BufferedImage): Color {
@@ -71,14 +71,6 @@ object ScreenUtil {
 
     private fun colorCount(
         bounds: RectangleAbsolute,
-        fullScreenshot: BufferedImage = takeCapture(),
-        acceptColorCondition: (Color) -> Boolean
-    ): Int {
-        return colorCount(bounds.toRectangle(), fullScreenshot, acceptColorCondition)
-    }
-
-    private fun colorCount(
-        bounds: Rectangle,
         fullScreenshot: BufferedImage = takeCapture(),
         acceptColorCondition: (Color) -> Boolean
     ): Int {

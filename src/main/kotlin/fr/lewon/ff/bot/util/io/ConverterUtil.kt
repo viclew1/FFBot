@@ -14,7 +14,10 @@ object ConverterUtil {
     private const val PRECISION = 10000.0f
 
     fun toPoint(point: PointAbsolute): Point {
-        return Point(point.x + GameInfo.gameBounds.x, point.y + GameInfo.gameBounds.y)
+        return Point(
+            point.x + GameInfo.gameBounds.x,
+            point.y + GameInfo.gameBounds.y
+        )
     }
 
     fun toRectangle(rectangleAbsolute: RectangleAbsolute): Rectangle {
