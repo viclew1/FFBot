@@ -20,12 +20,12 @@ object MouseUtil {
 
     fun leftClick(pointRelative: PointRelative) {
         val point = pointRelative.toPointAbsolute().toPoint()
-        Thread.sleep(60L)
         robot.mouseMove(point.x, point.y)
         Thread.sleep(60L)
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
         Thread.sleep(60L)
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+        Thread.sleep(60L)
     }
 
     fun leftClickExperimental(position: PointRelative) {
