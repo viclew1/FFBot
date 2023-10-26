@@ -4,7 +4,7 @@ import java.awt.Color
 
 object GameColors {
 
-    val SprintMinColor = Color(253, 228, 186)
-    val SprintMaxColor = Color(255, 233, 190)
+    val SprintMinColor = Color(251, 224, 182)
+    val SprintMaxColor = Color(255, 236, 193)
 
 }

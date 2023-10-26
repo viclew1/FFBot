@@ -10,7 +10,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Divider
-import androidx.compose.material.NavigationRail
 import androidx.compose.material.NavigationRailItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +32,8 @@ fun MainContent() {
     PressDraggable(modifier) {
         TooltipManageable {
             Column(Modifier.fillMaxSize()) {
+                Spacer(Modifier.height(5.dp))
+                Divider(Modifier.height(3.dp).fillMaxWidth(), color = AppColors.VERY_DARK_BG_COLOR)
                 MainNavigationRail()
                 Box(Modifier.fillMaxSize()) {
                     Row(Modifier.padding(bottom = 30.dp)) {
@@ -49,22 +50,22 @@ fun MainContent() {
 
 @Composable
 private fun MainNavigationRail() {
-    Row(modifier = Modifier.fillMaxWidth().height(64.dp)) {
-        NavigationRail(modifier = Modifier.fillMaxSize().weight(1f)) {
-            Row {
-                for (appContent in MainAppContent.entries) {
-                    Divider(Modifier.fillMaxHeight(0.8f).width(2.dp).align(Alignment.CenterVertically))
-                    val uiState = MainContentUIUtil.mainContentUIState
-                    val selected = uiState.value.currentAppContent == appContent
+    Row(modifier = Modifier.fillMaxWidth().height(48.dp).background(AppColors.backgroundColor)) {
+        Row(modifier = Modifier.fillMaxSize().weight(1f)) {
+            for (appContent in MainAppContent.entries) {
+                val uiState = MainContentUIUtil.mainContentUIState
+                val selected = uiState.value.currentAppContent == appContent
+                Row(Modifier) {
                     NavigationButton(
                         selected = selected,
                         onClick = { uiState.value = uiState.value.copy(currentAppContent = appContent) },
                         title = appContent.title,
-                        iconPainter = appContent.uiResource.imagePainter
+                        iconPainter = appContent.uiResource.imagePainter,
                     )
                 }
-                Spacer(Modifier.fillMaxWidth().weight(1f))
+                Divider(Modifier.fillMaxHeight(0.8f).width(2.dp).align(Alignment.CenterVertically))
             }
+            Spacer(Modifier.fillMaxWidth().weight(1f))
         }
     }
 }
@@ -80,12 +81,11 @@ private fun NavigationButton(
     val isHovered = remember { mutableStateOf(false) }
     NavigationRailItem(selected,
         onClick = onClick,
-        modifier = Modifier.defaultHoverManager(isHovered).handPointerIcon().fillMaxHeight()
-            .padding(vertical = 3.dp),
+        modifier = Modifier.defaultHoverManager(isHovered).handPointerIcon().fillMaxHeight().padding(horizontal = 3.dp),
         icon = {
             val backgroundColor = Color.Transparent
             TooltipTarget(title, modifier = Modifier.fillMaxSize()) {
-                Column(modifier = Modifier.width(64.dp).fillMaxHeight()) {
+                Column(modifier = Modifier.width(48.dp).fillMaxHeight()) {
                     SelectedIndicator(Modifier.align(Alignment.CenterHorizontally), selected, isHovered.value)
                     Image(iconPainter, "", imageModifier.fillMaxSize().background(backgroundColor))
                 }

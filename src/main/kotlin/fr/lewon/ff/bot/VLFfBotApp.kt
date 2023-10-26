@@ -20,7 +20,6 @@ import androidx.compose.ui.window.rememberWindowState
 import fr.lewon.ff.bot.gui.ComposeUIUtil
 import fr.lewon.ff.bot.gui.custom.handPointerIcon
 import fr.lewon.ff.bot.gui.main.MainContent
-import fr.lewon.ff.bot.gui.main.MainContentUIUtil
 import fr.lewon.ff.bot.gui.util.AppInfo
 import fr.lewon.ff.bot.gui.util.UiResource
 import fr.lewon.ff.bot.gui.util.getScaledImage
@@ -94,7 +93,7 @@ private fun initUIUtils() {
 @Composable
 private fun topBar() {
     TopAppBar(
-        title = { "${AppInfo.APP_NAME} - ${MainContentUIUtil.mainContentUIState.value.currentAppContent.title}" },
+        title = { AppInfo.APP_NAME },
         navigationIcon = { Image(UiResource.GLOBAL_LOGO.imageData.getScaledImage(64).toPainter(), "") },
         actions = {
             appBarButton("—") { windowState.isMinimized = !windowState.isMinimized }

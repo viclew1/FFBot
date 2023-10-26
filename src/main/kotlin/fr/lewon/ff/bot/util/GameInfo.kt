@@ -7,7 +7,8 @@ import java.util.concurrent.locks.ReentrantLock
 object GameInfo {
 
     val lock = ReentrantLock()
-    var gameBounds = Rectangle()
     val logger = VldbLogger()
+    var gameBounds = Rectangle()
+    var pid = -1L
 
 }

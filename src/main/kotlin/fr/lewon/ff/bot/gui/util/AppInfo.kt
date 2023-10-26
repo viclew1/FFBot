@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 
 object AppInfo {
 
-    const val APP_NAME = "VL FFXIV Bot"
+    const val APP_NAME = "VL FF Bot"
 
     @Composable
     fun mainTheme(typography: Typography, content: @Composable () -> Unit) {
