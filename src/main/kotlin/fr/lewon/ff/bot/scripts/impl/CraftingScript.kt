@@ -45,6 +45,9 @@ object CraftingScript : BotScriptBuilder("Crafting") {
     ) {
         val craftAmount = parameterValues.getParamValue(craftAmountParameter)
         val craftKeys = parameterValues.getParamValue(craftKeysParameter).split(",").map(this::getSpellPosition)
+        if (craftKeys.isEmpty()) {
+            error("You need at least one craft key")
+        }
         for (i in 0..<craftAmount) {
             if (!waitUntilCraftButtonAvailable()) {
                 error("Couldn't find craft button")
@@ -73,7 +76,7 @@ object CraftingScript : BotScriptBuilder("Crafting") {
         val maxColor1 = Color(121, 101, 63)
         val minColor2 = Color(174, 136, 76)
         val maxColor2 = Color(178, 140, 80)
-        return WaitUtil.waitUntil {
+        return WaitUtil.waitUntil(60_000) {
             ScreenUtil.colorCount(bounds, minColor1, maxColor1) > 5 &&
                 ScreenUtil.colorCount(bounds, minColor2, maxColor2) > 5
         }
